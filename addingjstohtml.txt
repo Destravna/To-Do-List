@@ -1,0 +1,4 @@
+<% if(t_day == "Tuesday"){ %>
+        <h1 style = "color:red">Its <%=t_day%> today and you gotta <%- t_do %></h1>; 
+    <% } %>
+    <h1>Its <%=t_day%> today and you gotta <%- t_do %></h1>
