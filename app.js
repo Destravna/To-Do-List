@@ -8,7 +8,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-var items = [];
+let items = [];
+let work = [];
 
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 let today = new Date();
@@ -27,17 +28,33 @@ app.get("/", (req, res)=>{
     res.render('list.ejs', {t_day : day,   t_nt : items});
 })
 
+app.get("/work", (req, res)=>{
+    res.render('list.ejs', {t_day : "Work",   t_nt : work});
+})
+
 app.post("/",(req, res)=>{
     //let task = req.body.nt;
     //7console.log(task);
+    
     if(req.body.nt.length > 0){
-        items.push(req.body.nt);
-        res.redirect("/");
+        console.log(req.body);
+        if(req.body.list == "Work"){
+            work.push(req.body.nt);
+            console.log(work);
+            res.redirect("/work");
+        }
+        else{
+            items.push(req.body.nt);
+            res.redirect("/");
+        }
+        
     }
     else{
         res.send("Task Name not mentioned");
     }
 })
+
+
 
 
 app.listen(3000, ()=>{
